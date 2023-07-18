@@ -12,3 +12,4 @@ cucumber-expressions
 cucumber-tag-expressions
 cucumber-test-release-automation
 selenium
+gherkin plugin
