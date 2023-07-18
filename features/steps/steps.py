@@ -8,13 +8,13 @@ def open(context, *args):
     pass
 
 
-@step('Я захожу на "{url}"')
+@step('Enter site "{url}"')
 def step_impl(context, url):
     context.driver.get('http://' + url)
-    time.sleep(1)
+    time.sleep(3)
 
 
-@step('Нахожу поле c e-mail "{email}" и нажимаю кнопку "{value}"')
+@step('Find area with email "{email}" and click button "{value}"')
 def step_impl(context, email, value):
     element = context.driver.find_element(By.XPATH, f'//tr/td[contains(text(), "{email}")]/..//a[text()="{value}"]')
     element.click()
