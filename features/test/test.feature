@@ -2,6 +2,13 @@
 Feature: Users Bugred
 
   Scenario: Click Lookup button
-    Given Enter site "users.bugred.ru"
-    Then Check method "doRegister"
-#    Then Find area with email "6@mail.ru" and click button "Посмотреть"
+    Given Check method "doRegister":
+      | key   | value |
+      | email | EMAIL |
+      | name  | NAME  |
+
+    Then Enter site "users.bugred.ru"
+    Then Search user with parameters:
+      | key   | value |
+      | email | EMAIL |
+      | name  | NAME  |

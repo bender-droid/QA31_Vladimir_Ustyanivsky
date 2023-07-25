@@ -5,6 +5,8 @@ from selenium.webdriver.common.by import By
 import requests
 # import json
 import help_file as HP
+import features.params.globals as GP
+
 
 
 def open(context, *args):
@@ -24,11 +26,17 @@ def step_impl(context, method):
     body = HP.date_doregister()
 
     response = requests.post(url, body)
+    print(response.json())
     assert response.status_code == 200
 
 
-@step('Find area with email "{email}" and click button "{value}"')
-def step_impl(context, email, value):
-    element = context.driver.find_element(By.XPATH, f'//tr/td[contains(text(), "{email}")]/..//a[text()="{value}"]')
+@step('Search user with parameters')
+def step_impl(context):
+    values = HP.get_values_from_table(context.table)
+    print(values)
+    data = HP.parser_params(values)
+    print(data)
+    xpath = f'//tr/td[contains(text(), "{data["email"]}")]/../td[contains(text(), "{data["name"]}")]/../td/a[contains(text(), "Посмотреть")]'
+    element = context.driver.find_element(By.XPATH, xpath)
     element.click()
     time.sleep(5)

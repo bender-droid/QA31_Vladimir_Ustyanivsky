@@ -1,5 +1,6 @@
 import json
 import random, string
+import features.params.globals as GP
 
 def date_doregister():
     date = """
@@ -10,8 +11,10 @@ def date_doregister():
         }
         """
     body = json.loads(date)
-    body['email'] = f'{randomword(8)}@test.com'
-    body['name'] = f'{randomword(10)}'
+    GP.EMAIL = f'{randomword(8)}@test.com'
+    GP.NAME = f'{randomword(10)}'
+    body['email'] = GP.EMAIL
+    body['name'] = GP.NAME
     body['password'] = '123123'
     return body
 
@@ -32,3 +35,18 @@ def http_methods(method):
     return url
 
 
+def get_values_from_table(table):
+    parameters = {}
+    for item in table:
+        parameters.setdefault(f'{item[0]}', f'{item[1]}')
+    return parameters
+
+
+def parser_params(dictionary):
+    for key, value in dictionary.items():
+        if value == 'EMAIL':
+            dictionary[key] = GP.EMAIL
+        elif value == 'NAME':
+            dictionary[key] = GP.NAME
+
+    return dictionary
