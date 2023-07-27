@@ -59,3 +59,8 @@ def step_impl(context, id):
     # element = context.driver.find_element(By.XPATH, xpath)
     # element.click()
     # time.sleep(5)
+
+
+@step('Find merchandise "{name}"')
+def step_impl(context, name):
+    pass

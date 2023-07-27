@@ -11,6 +11,4 @@ Feature: Shop Bugred
 
 
     Then Enter item page with "ID"
-#      | key   | value |
-#      | email | EMAIL |
-#      | name  | NAME  |
+    Then Find merchandise "name"
