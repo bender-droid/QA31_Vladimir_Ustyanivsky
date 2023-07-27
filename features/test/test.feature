@@ -1,14 +1,16 @@
 
-Feature: Users Bugred
+Feature: Shop Bugred
 
-  Scenario: Click Lookup button
-    Given Check method "doRegister":
-      | key   | value |
-      | email | EMAIL |
-      | name  | NAME  |
+  Scenario: Shop bugred.com
+    Then Check method "CreateItem":
+      | key    | value       |
+      | color  | RED         |
+      | size   | 20          |
+      | price  | 200         |
+      | params | test_testov |
 
-    Then Enter site "users.bugred.ru"
-    Then Search user with parameters:
-      | key   | value |
-      | email | EMAIL |
-      | name  | NAME  |
+
+    Then Enter item page with "ID"
+#      | key   | value |
+#      | email | EMAIL |
+#      | name  | NAME  |
