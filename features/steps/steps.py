@@ -6,6 +6,8 @@ import requests
 # import json
 import help_file as hp
 import features.params.globals as gp
+import features.params.xpath_helper as xh
+import re
 
 
 # def open(context, *args):
@@ -50,6 +52,7 @@ def step_impl(context, id):
     item = hp.glob_params(id)
     full_url = f'{gp.URL}shop/item/{item}'
     context.driver.get(full_url)
+    print(gp.ID)
     time.sleep(5)
     # print(values)
     # data = hp.glob_params_table(values)
@@ -61,6 +64,14 @@ def step_impl(context, id):
     # time.sleep(5)
 
 
-@step('Find merchandise "{name}"')
-def step_impl(context, name):
-    pass
+@step('Find url in merch parameters')
+def step_impl(context):
+    xpath = xh.xpath_parser('xpath_param_item')
+    text = context.driver.find_element(By.XPATH, xpath).text
+    link = re.search('http\S+', text)
+    if link:
+        print(f'В параметрах найдена ссылка: {link[0]}')
+        context.driver.get(link[0])
+    else:
+        raise ValueError('Ссылка не найдена!')
+    # print(link)
