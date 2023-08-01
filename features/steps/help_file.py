@@ -43,7 +43,7 @@ def date_create_item(values=None):
 def update_item(values=None):
     data = """
     {
-    "id" = "",
+    "id": "",
     "name": "",
     "section": "",
     "description": ""
@@ -51,10 +51,12 @@ def update_item(values=None):
     request_body = json.loads(data)
     if values:
         request_body.update(values)
+
     request_body["id"] = gp.ID
     request_body["name"] = f'test_{randomword(5)}'
     request_body["section"] = random.choice(gp.SECTION)
     request_body["description"] = f'{randomword(25)}'
+
     return request_body
 
 

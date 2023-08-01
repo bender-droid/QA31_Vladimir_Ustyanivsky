@@ -78,7 +78,7 @@ def step_impl(context):
 def step_impl(context, method):
     new_item_info = hp.get_values_from_table(context.table)
     body = hp.update_item(new_item_info)
-    print(body)
+    print(type(body))
     # if method == 'UpdateItem':
     #     url = hp.http_methods(method)
     # response = requests.post(body, url)
