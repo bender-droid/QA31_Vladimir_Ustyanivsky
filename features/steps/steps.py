@@ -10,10 +10,6 @@ import features.params.xpath_helper as xh
 import re
 
 
-# def open(context, *args):
-#     pass
-
-
 @step('Enter index page')
 def step_impl(context):
     context.driver.get(gp.URL)
@@ -22,6 +18,7 @@ def step_impl(context):
 
 @step('Check method "{method}"')
 def step_impl(context, method):
+    body = None
     table = hp.get_values_from_table(context.table)
     # body = hp.date_doregister()
     if method == 'CreateItem':
@@ -75,3 +72,14 @@ def step_impl(context):
     else:
         raise ValueError('Ссылка не найдена!')
     # print(link)
+
+
+@step('Check how "{method}" works')
+def step_impl(context, method):
+    new_item_info = hp.get_values_from_table(context.table)
+    body = hp.update_item(new_item_info)
+    print(body)
+    # if method == 'UpdateItem':
+    #     url = hp.http_methods(method)
+    # response = requests.post(body, url)
+    # print(response.json())

@@ -40,6 +40,24 @@ def date_create_item(values=None):
     return body
 
 
+def update_item(values=None):
+    data = """
+    {
+    "id" = "",
+    "name": "",
+    "section": "",
+    "description": ""
+    }"""
+    request_body = json.loads(data)
+    if values:
+        request_body.update(values)
+    request_body["id"] = gp.ID
+    request_body["name"] = f'test_{randomword(5)}'
+    request_body["section"] = random.choice(gp.SECTION)
+    request_body["description"] = f'{randomword(25)}'
+    return request_body
+
+
 def randomword(length):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(length))
@@ -54,6 +72,8 @@ def http_methods(method):
             url = 'http://users.bugred.ru/tasks/rest/doregister'
         case 'CreateCompany':
             url = 'http://users.bugred.ru/tasks/rest/createcompany'
+        case 'UpdateItem':
+            url = 'http://shop.bugred.ru/api/items/update/'
     return url
 
 
