@@ -108,3 +108,4 @@ def step_impl(context):
         print('Item size updated successfully!')
     if item_price[0] == gp.DICT.get("price"):
         print('Item price updated successfully!')
+    print(gp.DICT.get("params"))
