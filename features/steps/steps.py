@@ -99,5 +99,5 @@ def step_impl(context):
     print(gp.DICT.get("params"))
 
 
-def upload_photo(photo):
+# def upload_photo(photo):
 
