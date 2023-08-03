@@ -14,4 +14,6 @@ def xpath_parser(xpath):
             result = "//p[2]"
         case 'item_price':
             result = "//span[@class='label label-primary']"
+        case 'item_color':
+            result = "//div//span[@class='label']"
     return result

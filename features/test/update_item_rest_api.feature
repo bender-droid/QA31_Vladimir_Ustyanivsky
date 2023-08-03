@@ -1,6 +1,6 @@
 Feature: Shop Bugred
 
-  Scenario: Update item at shop.bugred.com
+  Scenario Outline: Update item at shop.bugred.com
     Given Check method "CreateItem":
       | key    | value                                                                                                                                    |
       | color  | RED                                                                                                                                      |
@@ -12,8 +12,16 @@ Feature: Shop Bugred
     Then Check how "UpdateItem" works:
       | key    | value                          |
       | color  | BLUE                           |
-      | size   | 40                             |
-      | price  | 99999                          |
+      | size   | <size>                         |
+      | price  | <price>                        |
       | params | Информация о товаре обновлена! |
+
     Then Enter item page with "ID"
-    Then Check updated info
+    And Check updated info
+
+    Examples:
+      | size | price |
+      | 20   | 2000  |
+      | 30   | 3000  |
+      | 40   | 4000  |
+      | 50   | 50000 |

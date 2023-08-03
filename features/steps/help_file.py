@@ -2,6 +2,7 @@ import json
 import random
 import string
 import features.params.globals as gp
+import webcolors
 
 
 def date_doregister():
@@ -71,13 +72,15 @@ def http_methods(method):
     url = None
     match method:
         case 'CreateItem':
-            url = 'http://shop.bugred.ru/api/items/create/'
+            url = f'{gp.URL}api/items/create/'
         case 'doRegister':
-            url = 'http://users.bugred.ru/tasks/rest/doregister'
+            url = f'{gp.URL}tasks/rest/doregister'
         case 'CreateCompany':
-            url = 'http://users.bugred.ru/tasks/rest/createcompany'
+            url = f'{gp.URL}tasks/rest/createcompany'
         case 'UpdateItem':
-            url = 'http://shop.bugred.ru/api/items/update/'
+            url = f'{gp.URL}api/items/update/'
+        case 'UploadPhoto':
+            url = f'{gp.URL}api/items/upload_photo/'
     return url
 
 
@@ -85,6 +88,7 @@ def get_values_from_table(table):
     parameters = {}
     for item in table:
         parameters.setdefault(f'{item[0]}', f'{item[1]}')
+    gp.TABLE = parameters
     return parameters
 
 
@@ -106,3 +110,10 @@ def glob_params(param):
     elif param == 'ID':
         param = gp.ID
     return param
+
+
+def comparing_colors(color_css, color_word):
+    color_word = webcolors.name_to_hex(color_word)
+    print(color_word)
+    print(color_css)
+

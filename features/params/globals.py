@@ -18,3 +18,5 @@ SECTION_LIST = [
 DESCRIPTION = ''
 DICT = None
 ID = ''
+
+TABLE = None
