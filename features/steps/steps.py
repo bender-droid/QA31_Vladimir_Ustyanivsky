@@ -90,8 +90,7 @@ def step_impl(context, method):
 def step_impl(context):
     item_name_xpath = xh.xpath_parser('item_name')
     item_name = context.driver.find_element(By.XPATH, item_name_xpath).text
-    item_section_xpath = xh.xpath_parser('item_section')
-    item_section = context.driver.find_element(By.XPATH, item_section_xpath).text
+    item_section = context.driver.find_element(By.XPATH, xh.xpath_parser('item_section')).text
     item_size_xpath = xh.xpath_parser('item_size')
     item_size = context.driver.find_element(By.XPATH, item_size_xpath).text
     item_size = re.search('[0-9]{2}', item_size)
