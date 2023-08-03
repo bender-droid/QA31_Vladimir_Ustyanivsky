@@ -32,10 +32,10 @@ def date_create_item(values=None):
     if values:
         body.update(values)
     gp.NAME = f'test_{randomword(5)}'
-    gp.SECTION = random.choice(gp.SECTION)
+    gp.CURRENT_SECTION = random.choice(gp.SECTION_LIST)
     gp.DESCRIPTION = f'{randomword(25)}'
     body['name'] = gp.NAME
-    body['section'] = gp.SECTION
+    body['section'] = gp.CURRENT_SECTION
     body['description'] = gp.DESCRIPTION
     return body
 
@@ -51,12 +51,14 @@ def update_item(values=None):
     request_body = json.loads(data)
     if values:
         request_body.update(values)
-
-    request_body["id"] = gp.ID
-    request_body["name"] = f'test_{randomword(5)}'
-    request_body["section"] = random.choice(gp.SECTION)
-    request_body["description"] = f'{randomword(25)}'
-
+    request_body["id"] = int(gp.ID)
+    gp.NAME = f'test_{randomword(5)}'
+    gp.CURRENT_SECTION = random.choice(gp.SECTION_LIST)
+    gp.DESCRIPTION = f'{randomword(25)}'
+    request_body["name"] = gp.NAME
+    request_body["section"] = gp.CURRENT_SECTION
+    request_body["description"] = gp.DESCRIPTION
+    gp.DICT = request_body
     return request_body
 
 

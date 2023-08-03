@@ -15,3 +15,5 @@ Feature: Shop Bugred
       | size   | 40                             |
       | price  | 99999                          |
       | params | Информация о товаре обновлена! |
+    Then Enter item page with "ID"
+    Then Check updated info

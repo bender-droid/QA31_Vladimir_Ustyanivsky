@@ -1,9 +1,9 @@
 import time
 from behave import step
-# from selenium import webdriver
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 import requests
-# import json
+import json
 import help_file as hp
 import features.params.globals as gp
 import features.params.xpath_helper as xh
@@ -76,10 +76,35 @@ def step_impl(context):
 
 @step('Check how "{method}" works')
 def step_impl(context, method):
+    url = None
     new_item_info = hp.get_values_from_table(context.table)
     body = hp.update_item(new_item_info)
-    print(type(body))
-    # if method == 'UpdateItem':
-    #     url = hp.http_methods(method)
-    # response = requests.post(body, url)
-    # print(response.json())
+    print(body)
+    if method == 'UpdateItem':
+        url = hp.http_methods(method)
+    response = requests.post(url, body)
+    print(response.json())
+
+
+@step('Check updated info')
+def step_impl(context):
+    item_name_xpath = xh.xpath_parser('item_name')
+    item_name = context.driver.find_element(By.XPATH, item_name_xpath).text
+    item_section_xpath = xh.xpath_parser('item_section')
+    item_section = context.driver.find_element(By.XPATH, item_section_xpath).text
+    item_size_xpath = xh.xpath_parser('item_size')
+    item_size = context.driver.find_element(By.XPATH, item_size_xpath).text
+    item_size = re.search('[0-9]{2}', item_size)
+    item_price_xpath = xh.xpath_parser('item_price')
+    item_price = context.driver.find_element(By.XPATH, item_price_xpath).text
+    item_price = re.search('[0-9]*', item_price)
+    match item_name:
+        case gp.NAME:
+            print('Item name updated successfully!')
+    match item_section:
+        case gp.CURRENT_SECTION:
+            print('Item section updated successfully!')
+    if item_size[0] == gp.DICT.get("size"):
+        print('Item size updated successfully!')
+    if item_price[0] == gp.DICT.get("price"):
+        print('Item price updated successfully!')
