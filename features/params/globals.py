@@ -1,7 +1,7 @@
 URL = 'http://shop.bugred.ru/'
-EMAIL = ''
-NAME = ''
-CURRENT_SECTION = ''
+EMAIL = None
+NAME = None
+CURRENT_SECTION = None
 SECTION_LIST = [
     'Категория 1',
     'Категория 2',
@@ -15,8 +15,7 @@ SECTION_LIST = [
     'Рубашки',
     'Футболки'
     ]
-DESCRIPTION = ''
+DESCRIPTION = None
 DICT = None
-ID = ''
-
+ID = None
 TABLE = None

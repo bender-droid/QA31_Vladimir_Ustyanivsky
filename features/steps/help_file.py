@@ -65,7 +65,7 @@ def update_item(values=None):
 
 def randomword(length):
     letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(length))
+    return ''.join(random.choice(letters) for _ in range(length))
 
 
 def http_methods(method):
@@ -116,4 +116,3 @@ def comparing_colors(color_css, color_word):
     color_word = webcolors.name_to_hex(color_word)
     print(color_word)
     print(color_css)
-

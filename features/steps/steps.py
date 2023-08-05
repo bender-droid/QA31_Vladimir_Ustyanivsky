@@ -1,14 +1,13 @@
 import time
 from behave import step
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 import requests
-import json
 import help_file as hp
 import features.params.globals as gp
 import features.params.xpath_helper as xh
 import re
-
+import json
+from selenium import webdriver
 
 
 @step('Enter index page')
@@ -19,37 +18,34 @@ def step_impl(context):
 
 @step('Check method "{method}"')
 def step_impl(context, method):
-    body = None
-    table = hp.get_values_from_table(context.table)
-    # body = hp.date_doregister()
-    if method == 'CreateItem':
-        body = hp.date_create_item(table)
-    url = hp.http_methods(method)
-    response = requests.post(url, body)
-    print(response.json())
-    gp.DICT = response.json()
-    gp.ID = gp.DICT['result']['id']
-    # assert response.status_code == 200
+    match method:
+        case 'CreateItem':
+            table = hp.get_values_from_table(context.table)
+            body = hp.date_create_item(table)
+            url = hp.http_methods(method)
+            response = requests.post(url, body)
+            print(response.json())
+            gp.DICT = response.json()
+            gp.ID = gp.DICT['result']['id']
+        case 'UpdateItem':
+            url = hp.http_methods(method)
+            new_item_info = hp.get_values_from_table(context.table)
+            body = hp.update_item(new_item_info)
+            print(body)
+            response = requests.post(url, body)
+            print(response.json())
+        case 'doRegister':
+            # body = hp.date_doregister()
+            # assert response.status_code == 200
+            pass
 
 
-@step('Check how "{method}" works')
-def step_impl(context, method):
-    url = None
-    new_item_info = hp.get_values_from_table(context.table)
-    body = hp.update_item(new_item_info)
-    print(body)
-    if method == 'UpdateItem':
-        url = hp.http_methods(method)
-    response = requests.post(url, body)
-    print(response.json())
-
-
-@step('Enter item page with "{id}"')
-def step_impl(context, id):
-    item = hp.glob_params(id)
+@step('Enter item page with "{item_id}"')
+def step_impl(context, item_id):
+    item = hp.glob_params(item_id)
     full_url = f'{gp.URL}shop/item/{item}'
     context.driver.get(full_url)
-    print(gp.ID)
+    print(f'Item ID: {gp.ID}')
     time.sleep(5)
     # print(values)
     # data = hp.glob_params_table(values)
@@ -98,6 +94,4 @@ def step_impl(context):
         print('Item price updated successfully!')
     print(gp.DICT.get("params"))
 
-
 # def upload_photo(photo):
-
