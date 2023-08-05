@@ -38,6 +38,11 @@ def step_impl(context, method):
             # body = hp.date_doregister()
             # assert response.status_code == 200
             pass
+        case 'UploadPhoto':
+            url = hp.http_methods(method)
+            photo, data = hp.form_request_body_for_upload()
+            response = requests.post(url, data=data, files=photo)
+            print(response)
 
 
 @step('Enter item page with "{item_id}"')
@@ -93,5 +98,3 @@ def step_impl(context):
     if item_price[0] == gp.DICT.get("price"):
         print('Item price updated successfully!')
     print(gp.DICT.get("params"))
-
-# def upload_photo(photo):

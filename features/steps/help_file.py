@@ -3,6 +3,7 @@ import random
 import string
 import features.params.globals as gp
 import webcolors
+import os
 
 
 def date_doregister():
@@ -116,3 +117,17 @@ def comparing_colors(color_css, color_word):
     color_word = webcolors.name_to_hex(color_word)
     print(color_word)
     print(color_css)
+
+
+def form_request_body_for_upload():
+    image_dir = 'D:\\Docs\\projects\\QA31_Vladimir_Ustyanivsky\\features\\files\\images'
+    random_file = random.choice(os.listdir(image_dir))
+    file = os.path.join(image_dir, random_file)
+
+    photo = {
+        'photo': open(file, 'rb')
+    }
+    data = {
+        'id': gp.ID
+    }
+    return photo, data
