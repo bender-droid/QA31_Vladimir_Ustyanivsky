@@ -2,7 +2,7 @@ import time
 from behave import step
 from selenium.webdriver.common.by import By
 import requests
-import help_file as hp
+import help_file_rest as hp
 import features.params.globals as gp
 import features.params.xpath_helper as xh
 import re
