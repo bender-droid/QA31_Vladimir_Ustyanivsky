@@ -8,7 +8,10 @@ import features.params.xpath_helper as xh
 import re
 import json
 from selenium import webdriver
+import colorama
 
+
+colorama.init(autoreset=True)
 
 @step('Enter index page')
 def step_impl(context):
@@ -18,31 +21,35 @@ def step_impl(context):
 
 @step('Check method "{method}"')
 def step_impl(context, method):
+    url = hp.http_methods(method)
+    response = None
     match method:
         case 'CreateItem':
             table = hp.get_values_from_table(context.table)
             body = hp.date_create_item(table)
-            url = hp.http_methods(method)
             response = requests.post(url, body)
-            print(response.json())
             gp.DICT = response.json()
             gp.ID = gp.DICT['result']['id']
         case 'UpdateItem':
-            url = hp.http_methods(method)
             new_item_info = hp.get_values_from_table(context.table)
             body = hp.update_item(new_item_info)
             print(body)
             response = requests.post(url, body)
-            print(response.json())
         case 'doRegister':
             # body = hp.date_doregister()
             # assert response.status_code == 200
             pass
         case 'UploadPhoto':
-            url = hp.http_methods(method)
             photo, data = hp.form_request_body_for_upload()
             response = requests.post(url, data=data, files=photo)
-            print(response)
+    print(response.json())
+    if response.status_code == 200:
+        print(colorama.Fore.GREEN + f'Method {method} completed successfully')
+        print(colorama.Fore.YELLOW + f'{response.json()}')
+        print(colorama.Style.RESET_ALL)
+    else:
+        raise ValueError(colorama.Fore.RED + f'Method crashed with {response.status_code} code')
+
 
 
 @step('Enter item page with "{item_id}"')
@@ -98,3 +105,27 @@ def step_impl(context):
     if item_price[0] == gp.DICT.get("price"):
         print('Item price updated successfully!')
     print(gp.DICT.get("params"))
+
+
+@step('Get item info "{item_id}"')
+def step_impl(context, item_id):
+    body = {
+        'id': f'{hp.glob_params(item_id)}'
+    }
+    url = f'{gp.URL}api/items/get/'
+    response = requests.post(url, body)
+    print(response.json())
+
+
+@step('Create item with "{api}"')
+def step_impl(context, api):
+    match api:
+        case "REST":
+            url = hp.http_methods('CreateItem')
+            table = hp.get_values_from_table(context.table)
+            body = hp.date_create_item(table)
+            response = requests.post(url, body)
+            gp.RESPONSE = response.json()
+            gp.ID = gp.DICT["result"]["id"]
+        case "SOAP":
+            pass

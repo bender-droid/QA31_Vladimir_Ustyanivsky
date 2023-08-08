@@ -19,3 +19,4 @@ DESCRIPTION = None
 DICT = None
 ID = None
 TABLE = None
+RESPONSE = None

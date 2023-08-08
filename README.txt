@@ -14,3 +14,4 @@ cucumber-test-release-automation
 selenium
 gherkin plugin
 webcolors
+requests
