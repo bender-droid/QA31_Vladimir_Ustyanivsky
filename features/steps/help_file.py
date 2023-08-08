@@ -120,7 +120,7 @@ def comparing_colors(color_css, color_word):
 
 
 def form_request_body_for_upload():
-    image_dir = 'D:\\Docs\\projects\\QA31_Vladimir_Ustyanivsky\\features\\files\\images'
+    image_dir = 'features/files/images'
     random_file = random.choice(os.listdir(image_dir))
     file = os.path.join(image_dir, random_file)
 
