@@ -1,5 +1,8 @@
+
+
 URL = 'http://shop.bugred.ru/'
 EMAIL = None
+RAND_NAME = None
 NAME = None
 CURRENT_SECTION = None
 SECTION_LIST = [
@@ -20,3 +23,4 @@ DICT = None
 ID = None
 TABLE = None
 RESPONSE = None
+RESPONSES = []

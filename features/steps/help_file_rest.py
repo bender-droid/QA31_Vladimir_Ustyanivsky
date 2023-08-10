@@ -4,6 +4,10 @@ import string
 import features.params.globals as gp
 import webcolors
 import os
+import colorama
+
+
+colorama.init(autoreset=True)
 
 
 def date_doregister():
@@ -82,6 +86,8 @@ def http_methods(method):
             url = f'{gp.URL}api/items/update/'
         case 'UploadPhoto':
             url = f'{gp.URL}api/items/upload_photo/'
+        case 'Search':
+            url = f'{gp.URL}api/items/search/'
     return url
 
 
@@ -131,3 +137,11 @@ def form_request_body_for_upload():
         'id': gp.ID
     }
     return photo, data
+
+
+def show_message(response):
+    if response.status_code == 200:
+        print(colorama.Fore.GREEN + f'Method completed successfully')
+        print(colorama.Fore.YELLOW + f'{response.json()}')
+    else:
+        raise ValueError(colorama.Fore.RED + f'Method crashed with {response.status_code} code')

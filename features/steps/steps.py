@@ -8,10 +8,10 @@ import features.params.xpath_helper as xh
 import re
 import json
 from selenium import webdriver
-import colorama
 
 
-colorama.init(autoreset=True)
+
+
 
 @step('Enter index page')
 def step_impl(context):
@@ -43,12 +43,7 @@ def step_impl(context, method):
             photo, data = hp.form_request_body_for_upload()
             response = requests.post(url, data=data, files=photo)
     print(response.json())
-    if response.status_code == 200:
-        print(colorama.Fore.GREEN + f'Method {method} completed successfully')
-        print(colorama.Fore.YELLOW + f'{response.json()}')
-        print(colorama.Style.RESET_ALL)
-    else:
-        raise ValueError(colorama.Fore.RED + f'Method crashed with {response.status_code} code')
+    hp.show_message(response)
 
 
 
@@ -129,3 +124,25 @@ def step_impl(context, api):
             gp.ID = gp.DICT["result"]["id"]
         case "SOAP":
             pass
+
+
+@step('Create "{quantity}" of merchandise')
+def step_impl(context, quantity):
+    gp.TABLE = hp.get_values_from_table(context.table)
+    # print(table)
+    body = json.dumps(gp.TABLE)
+    url = hp.http_methods("CreateItem")
+    for _ in range(int(quantity)):
+        response = requests.post(url, body)
+        gp.RESPONSES.append(response.json()['result'])
+        hp.show_message(response)
+
+
+@step('Find all merchandise with "{name}" name')
+def step_impl(context, name):
+    url = hp.http_methods('Search')
+    body = {
+        'query': name
+    }
+    response = requests.post(url, body)
+    print(response.json()['result'])
