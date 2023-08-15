@@ -4,11 +4,7 @@ Feature: Shop Bugred
 
     Given Go to "Регистрация" page
 
-#    Then Fill in the registration info:
-#      | key      | value      |
-#      | name     | RAND_NAME  |
-#      | email    | RAND_EMAIL |
-#      | password | 123        |
+    Then Fill in the "exampleInputName" field "RAND_NAME"
 #
 #    Then Get item info "ID"
 #

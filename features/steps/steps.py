@@ -163,9 +163,16 @@ def step_impl(context, item_id):
     hp.show_message(response)
 
 
-@step('Go to registration page')
+@step('Go to "{page_name}" page')
 def step_impl(context, page_name):
     context.driver.get(gp.URL)
-    registration_link = context.driver.find_element(By.XPATH, f"//li[contains(@class, 'nav-item')]/a[contains(text(), {page_name})]/..")
+    registration_link = context.driver.find_element(
+        By.XPATH, f"//li[contains(@class, 'nav-item')]/a[contains(text(), '{page_name}')]"
+    )
     registration_link.click()
     time.sleep(2)
+
+
+@step('Fill in the "{field_name}" field "{value}"')
+def step_impl(context, field_name, value)
+    pass
