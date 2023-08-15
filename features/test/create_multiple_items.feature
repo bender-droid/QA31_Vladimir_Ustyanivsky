@@ -10,4 +10,4 @@ Feature: Shop Bugred
       | size        | 20                       |
       | price       | 200                      |
       | params      | Random merchandise       |
-    Then Find all merchandise with "RAND_NAME" name
+    Then Find merchandise with "RAND_NAME" name

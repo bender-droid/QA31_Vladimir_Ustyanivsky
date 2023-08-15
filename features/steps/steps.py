@@ -129,8 +129,9 @@ def step_impl(context, api):
 @step('Create "{quantity}" of merchandise')
 def step_impl(context, quantity):
     gp.TABLE = hp.get_values_from_table(context.table)
-    # print(table)
-    body = json.dumps(gp.TABLE)
+    item = hp.glob_params_table(gp.TABLE)
+    gp.NAME = item["name"]
+    body = json.dumps(item)
     url = hp.http_methods("CreateItem")
     for _ in range(int(quantity)):
         response = requests.post(url, body)
@@ -138,9 +139,11 @@ def step_impl(context, quantity):
         hp.show_message(response)
 
 
-@step('Find all merchandise with "{name}" name')
+@step('Find merchandise with "{name}" name')
 def step_impl(context, name):
     url = hp.http_methods('Search')
+    if name == 'RAND_NAME':
+        name = gp.NAME
     body = {
         'query': name
     }

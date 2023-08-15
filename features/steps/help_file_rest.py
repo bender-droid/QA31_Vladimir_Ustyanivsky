@@ -5,7 +5,7 @@ import features.params.globals as gp
 import webcolors
 import os
 import colorama
-
+from features.params import random_value as rv
 
 colorama.init(autoreset=True)
 
@@ -19,8 +19,8 @@ def date_doregister():
         }
         """
     body = json.loads(date)
-    gp.EMAIL = f'{randomword(8)}@test.com'
-    gp.NAME = f'{randomword(10)}'
+    gp.EMAIL = f'{rv.RAND_NAME}@test.com'
+    gp.NAME = f'{rv.RAND_NAME}'
     body['email'] = gp.EMAIL
     body['name'] = gp.NAME
     body['password'] = '123123'
@@ -37,9 +37,9 @@ def date_create_item(values=None):
     body = json.loads(date)
     if values:
         body.update(values)
-    gp.NAME = f'test_{randomword(5)}'
+    gp.NAME = f'test_{rv.RAND_NAME}'
     gp.CURRENT_SECTION = random.choice(gp.SECTION_LIST)
-    gp.DESCRIPTION = f'{randomword(25)}'
+    gp.DESCRIPTION = f'{rv.RAND_NAME}'
     body['name'] = gp.NAME
     body['section'] = gp.CURRENT_SECTION
     body['description'] = gp.DESCRIPTION
@@ -58,19 +58,15 @@ def update_item(values=None):
     if values:
         request_body.update(values)
     request_body["id"] = int(gp.ID)
-    gp.NAME = f'test_{randomword(5)}'
+    gp.NAME = f'test_{rv.RAND_NAME}'
     gp.CURRENT_SECTION = random.choice(gp.SECTION_LIST)
-    gp.DESCRIPTION = f'{randomword(25)}'
+    gp.DESCRIPTION = f'{rv.RAND_NAME}'
     request_body["name"] = gp.NAME
     request_body["section"] = gp.CURRENT_SECTION
     request_body["description"] = gp.DESCRIPTION
     gp.DICT = request_body
     return request_body
 
-
-def randomword(length):
-    letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for _ in range(length))
 
 
 def http_methods(method):
@@ -108,6 +104,8 @@ def glob_params_table(dictionary):
                 dictionary[key] = gp.NAME
             case 'ID':
                 dictionary[key] = gp.ID
+            case 'RAND_NAME':
+                dictionary[key] = rv.RAND_NAME
     return dictionary
 
 
