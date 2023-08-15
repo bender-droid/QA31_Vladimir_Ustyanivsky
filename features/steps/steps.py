@@ -174,5 +174,5 @@ def step_impl(context, page_name):
 
 
 @step('Fill in the "{field_name}" field "{value}"')
-def step_impl(context, field_name, value)
+def step_impl(context, field_name, value):
     pass
