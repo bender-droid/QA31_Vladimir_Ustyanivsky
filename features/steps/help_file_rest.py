@@ -84,6 +84,8 @@ def http_methods(method):
             url = f'{gp.URL}api/items/upload_photo/'
         case 'Search':
             url = f'{gp.URL}api/items/search/'
+        case 'Delete':
+            url = f'{gp.URL}api/items/delete/'
     return url
 
 

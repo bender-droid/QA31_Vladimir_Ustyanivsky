@@ -149,3 +149,23 @@ def step_impl(context, name):
     }
     response = requests.post(url, body)
     print(response.json()['result'])
+
+
+@step('Delete item "{item_id}"')
+def step_impl(context, item_id):
+    url = hp.http_methods('Delete')
+    if item_id == 'ID':
+        item_id = gp.ID
+    body = {
+        "id": hp.glob_params(item_id)
+    }
+    response = requests.post(url, body)
+    hp.show_message(response)
+
+
+@step('Go to registration page')
+def step_impl(context, page_name):
+    context.driver.get(gp.URL)
+    registration_link = context.driver.find_element(By.XPATH, f"//li[contains(@class, 'nav-item')]/a[contains(text(), {page_name})]/..")
+    registration_link.click()
+    time.sleep(2)
