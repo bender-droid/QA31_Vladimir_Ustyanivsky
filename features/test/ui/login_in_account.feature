@@ -9,5 +9,5 @@ Feature: Shop Bugred
     Then Fill in the "exampleInputPassword1" field "TEST_PASSWORD"
 
     Then Click "Войти" button
-#
-#    Then Expect to see "Теперь вы можете войти используя свой email и пароль!" message in window
+
+    Then Go to "Test" page

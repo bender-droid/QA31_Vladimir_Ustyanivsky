@@ -20,4 +20,6 @@ def xpath_parser(xpath):
             result = "//button[contains(text(), '%s')]"
         case 'message_in_window':
             result = "//section[@id='alertify']//p[contains(text(), '%s')]"
+        case 'dropdown_button':
+            result = "//div[contains(@class, 'dropdown-menu')]/a[contains(text(), '%s')]"
     return result
