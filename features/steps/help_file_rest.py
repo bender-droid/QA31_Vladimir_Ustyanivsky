@@ -1,6 +1,5 @@
 import json
 import random
-import string
 import features.params.globals as gp
 import webcolors
 import os
@@ -112,10 +111,15 @@ def glob_params_table(dictionary):
 
 
 def glob_params(param):
-    if param == 'EMAIL':
-        param = gp.EMAIL
-    elif param == 'ID':
-        param = gp.ID
+    match param:
+        case 'EMAIL':
+            param = gp.EMAIL
+        case 'ID':
+            param = gp.ID
+        case 'TEST_EMAIL':
+            param = gp.TEST_EMAIL
+        case 'TEST_PASSWORD':
+            param = gp.TEST_PASSWORD
     return param
 
 
@@ -145,3 +149,16 @@ def show_message(response):
         print(colorama.Fore.YELLOW + f'{response.json()}')
     else:
         raise ValueError(colorama.Fore.RED + f'Method crashed with {response.status_code} code')
+
+
+def get_full_url(page):
+    url = ''
+    match page:
+        case 'Регистрация':
+            url = gp.URL + 'user/register/index'
+        case 'Главная':
+            url = gp.URL
+        case 'Вход':
+            url = gp.URL + 'user/login/index'
+    return url
+

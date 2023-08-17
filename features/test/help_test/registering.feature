@@ -4,9 +4,9 @@ Feature: Shop Bugred
 
     Given Go to "Регистрация" page
 
-    Then Fill in the "exampleInputName" field "RAND_NAME"
+    Then Fill in the "exampleInputName" field "Bender"
 
-    Then Fill in the "exampleInputEmail1" field "RAND_EMAIL"
+    Then Fill in the "exampleInputEmail1" field "test123@test.com"
 
     Then Fill in the "exampleInputPassword1" field "12345"
 

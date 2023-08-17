@@ -7,3 +7,4 @@ def randomword(length):
 
 
 RAND_NAME = randomword(10)
+RAND_EMAIL = f'test_{randomword(5)}@test.com'

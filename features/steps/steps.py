@@ -5,12 +5,11 @@ import requests
 import help_file_rest as hp
 import features.params.globals as gp
 import features.params.xpath_helper as xh
+import features.params.random_value as rv
 import re
 import json
 from selenium import webdriver
-
-
-
+import colorama
 
 
 @step('Enter index page')
@@ -44,7 +43,6 @@ def step_impl(context, method):
             response = requests.post(url, data=data, files=photo)
     print(response.json())
     hp.show_message(response)
-
 
 
 @step('Enter item page with "{item_id}"')
@@ -170,9 +168,27 @@ def step_impl(context, page_name):
         By.XPATH, f"//li[contains(@class, 'nav-item')]/a[contains(text(), '{page_name}')]"
     )
     registration_link.click()
-    time.sleep(2)
+    time.sleep(5)
 
 
 @step('Fill in the "{field_name}" field "{value}"')
 def step_impl(context, field_name, value):
-    pass
+    value = hp.glob_params(value)
+    input_field = context.driver.find_element(By.ID, f'{field_name}')
+    input_field.send_keys(value)
+    time.sleep(3)
+
+
+@step('Click "{button_name}" button')
+def step_impl(context, button_name):
+    button_xpath = xh.xpath_parser('button')
+    button = context.driver.find_element(By.XPATH, button_xpath % button_name)
+    button.click()
+    time.sleep(5)
+
+
+@step('Expect to see "{exp_message}" message in window')
+def step_impl(context, exp_message):
+    message_xpath = xh.xpath_parser('message_in_window')
+    message = context.driver.find_element(By.XPATH, message_xpath % exp_message)
+    print(colorama.Fore.GREEN + f"Window with '{message.text}' message found!")

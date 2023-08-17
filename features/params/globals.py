@@ -1,6 +1,11 @@
+# test user data
+TEST_EMAIL = 'test@mail.com'
+TEST_PASSWORD = '1'
 
-
+# base URL
 URL = 'http://shop.bugred.ru/'
+
+# global variables to transfer between steps
 EMAIL = None
 RAND_NAME = None
 NAME = None
@@ -17,7 +22,7 @@ SECTION_LIST = [
     'Брюки',
     'Рубашки',
     'Футболки'
-    ]
+]
 DESCRIPTION = None
 DICT = None
 ID = None
