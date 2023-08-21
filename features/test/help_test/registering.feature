@@ -2,7 +2,7 @@ Feature: Shop Bugred
 
   Scenario: Register new user
 
-    Given Go to "Регистрация" page
+    Given Enter "Регистрация" page
 
     Then Fill in the "exampleInputName" field "Bender"
 

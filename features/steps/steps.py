@@ -12,10 +12,11 @@ from selenium import webdriver
 import colorama
 
 
-@step('Enter index page')
-def step_impl(context):
-    context.driver.get(gp.URL)
-    time.sleep(1)
+@step('Enter "{page_name}" page')
+def step_impl(context, page_name):
+    url = hp.get_full_url(page_name)
+    context.driver.get(url)
+    time.sleep(3)
 
 
 @step('Check method "{method}"')
@@ -192,3 +193,8 @@ def step_impl(context, exp_message):
     message_xpath = xh.xpath_parser('message_in_window')
     message = context.driver.find_element(By.XPATH, message_xpath % exp_message)
     print(colorama.Fore.GREEN + f"Window with '{message.text}' message found!")
+
+
+@step('Click navigation "{link}" link')
+def step_impl(context, link):
+

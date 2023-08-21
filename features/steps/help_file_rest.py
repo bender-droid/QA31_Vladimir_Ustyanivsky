@@ -120,6 +120,10 @@ def glob_params(param):
             param = gp.TEST_EMAIL
         case 'TEST_PASSWORD':
             param = gp.TEST_PASSWORD
+        case 'RAND_NAME':
+            param = rv.RAND_NAME
+        case 'RAND_EMAIL':
+            param = rv.RAND_EMAIL
     return param
 
 

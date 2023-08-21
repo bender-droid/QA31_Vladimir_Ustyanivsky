@@ -11,3 +11,5 @@ Feature: Shop Bugred
     Then Click "Войти" button
 
     Then Go to "Test" page
+
+    Then Go to "Настройки" page
