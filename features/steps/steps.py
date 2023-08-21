@@ -197,4 +197,8 @@ def step_impl(context, exp_message):
 
 @step('Click navigation "{link}" link')
 def step_impl(context, link):
+    element_xpath = xh.xpath_parser('dropdown_button')
+    element = context.driver.find_element(By.XPATH, element_xpath % link)
+    element.click()
+    time.sleep(5)
 
