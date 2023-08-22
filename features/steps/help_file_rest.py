@@ -124,6 +124,8 @@ def glob_params(param):
             param = rv.RAND_NAME
         case 'RAND_EMAIL':
             param = rv.RAND_EMAIL
+        case 'NAME':
+            param = gp.NAME
     return param
 
 

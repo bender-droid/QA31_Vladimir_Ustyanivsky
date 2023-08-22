@@ -10,6 +10,8 @@ Feature: Shop Bugred
 
     Then Click "Войти" button
 
-    Then Go to "Категории" page
+    Then Go to "Test" page
 
-    Then Click navigation "Брюки" link
+    Then Click navigation "Настройки" link
+
+    Then Expect to see "test@mail.com" text in area with id "exampleInputEmail1"

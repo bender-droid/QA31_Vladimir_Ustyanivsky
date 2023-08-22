@@ -8,7 +8,6 @@ import features.params.xpath_helper as xh
 import features.params.random_value as rv
 import re
 import json
-from selenium import webdriver
 import colorama
 
 
@@ -30,6 +29,7 @@ def step_impl(context, method):
             response = requests.post(url, body)
             gp.DICT = response.json()
             gp.ID = gp.DICT['result']['id']
+            gp.NAME = gp.DICT['result']['name']
         case 'UpdateItem':
             new_item_info = hp.get_values_from_table(context.table)
             body = hp.update_item(new_item_info)
@@ -202,3 +202,57 @@ def step_impl(context, link):
     element.click()
     time.sleep(5)
 
+@step('Expect to see "{text}" text in area with id "{line}"')
+def step_impl(context, text, line):
+    value = hp.glob_params(text)
+    element = context.driver.find_element(By.ID, f'{line}')
+    element_value = element.get_attribute('value')
+    if element_value == text:
+        print(colorama.Fore.GREEN + f"Area with '{text}' found!")
+    else:
+        print(colorama.Fore.RED + f"Area with '{text}' not found!")
+
+@step('Enter quantity "{quantity}" in area "{line}"')
+def step_impl(context, quantity, line):
+    amount_xpath = xh.xpath_parser('items_amount')
+    amount = context.driver.find_element(By.XPATH, amount_xpath % f'{line}')
+    amount.send_keys(quantity)
+    time.sleep(2)
+
+
+@step('Press cart icon')
+def step_impl(context):
+    cart_xpath = xh.xpath_parser('cart')
+    cart = context.driver.find_element(By.XPATH, cart_xpath)
+    cart.click()
+    time.sleep(2)
+
+
+@step('Expect current url contains "{string}"')
+def step_impl(context, string):
+    if string in context.driver.current_url:
+        print(colorama.Fore.GREEN + f"Current URL contains {string}!")
+    else:
+        print(colorama.Fore.RED + f"We're fucked!")
+
+
+@step('Searching for merchandise "{name}"')
+def step_impl(context, name):
+    name = hp.glob_params(name)
+    search_xpath = xh.xpath_parser('search')
+    search_button_xpath = xh.xpath_parser('search_button')
+    search_bar = context.driver.find_element(By.XPATH, search_xpath)
+    search_button = context.driver.find_element(By.XPATH, search_button_xpath)
+    search_bar.send_keys(name)
+    search_button.click()
+    time.sleep(3)
+
+
+@step('Expect to see "{quantity}" merchandises on page')
+def step_impl(context, quantity):
+    xpath = search_button_xpath = xh.xpath_parser('item_row')
+    element = context.driver.find_elements(By.XPATH, xpath)
+    if len(element) == int(quantity):
+        print(colorama.Fore.GREEN + f"Quantity match!!")
+    else:
+        print(colorama.Fore.RED + f"We're fucked! Expected {quantity}, but got {len(element)}")
