@@ -5,7 +5,7 @@ import requests
 import help_file_rest as hp
 import features.params.globals as gp
 import features.params.xpath_helper as xh
-import features.params.random_value as rv
+# import features.params.random_value as rv
 import re
 import json
 import colorama
@@ -162,6 +162,18 @@ def step_impl(context, item_id):
     hp.show_message(response)
 
 
+@step('Delete items "{item_id}"')
+def step_impl(context, item_id):
+    url = hp.http_methods('Delete')
+    item_id_list = hp.glob_params(item_id)
+    for item in item_id_list:
+        body = {
+            "id": item['id']
+        }
+        response = requests.post(url, body)
+        hp.show_message(response)
+
+
 @step('Go to "{page_name}" page')
 def step_impl(context, page_name):
     context.driver.get(gp.URL)
@@ -256,3 +268,11 @@ def step_impl(context, quantity):
         print(colorama.Fore.GREEN + f"Quantity match!!")
     else:
         print(colorama.Fore.RED + f"We're fucked! Expected {quantity}, but got {len(element)}")
+
+
+@step('Press "{name}" checkbox')
+def step_impl(context, name):
+    checkbox_xpath = xh.xpath_parser('checkbox')
+    element = context.driver.find_element(By.XPATH, checkbox_xpath % name)
+    element.click()
+    time.sleep(3)

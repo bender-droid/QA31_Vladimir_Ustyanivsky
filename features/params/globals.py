@@ -29,3 +29,5 @@ ID = None
 TABLE = None
 RESPONSE = None
 RESPONSES = []
+COLOR = None
+SIZE = None
